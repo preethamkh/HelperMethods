@@ -1,0 +1,43 @@
+﻿@model HelperMethods.Models.Person
+
+@{
+    ViewBag.Title = "CreatePerson";
+    Layout = "/Views/Shared/_Layout.cshtml";
+    Html.EnableClientValidation(false);
+}
+
+<h2>CreatePerson</h2>
+
+@using(Html.BeginRouteForm("FormRoute", new {}, FormMethod.Post, new {@class = "personClass", data_formType = "person"})) { 
+@*<form action="/Home/CreatePerson" method="post">*@
+    @*<div class="dataElem">
+        <label>PersonId</label>
+        @Html.Editor("PersonId")
+    </div>
+    <div class="dataElem">
+        <label>First Name</label>
+        @Html.Editor("FirstName")
+    </div>
+    <div class="dataElem">
+        <label>Last Name</label>
+        @Html.EditorFor(m => m.LastName)
+    </div>
+    <div class="dataElem">
+        <label>Role</label>
+        @Html.EditorFor(m => m.Role)
+    </div>
+    <div class="dataElem">
+        <label>Birth Date</label>
+        @Html.EditorFor(m => m.BirthDate)
+    </div>*@
+    <div class="column">
+        @Html.EditorForModel()
+    </div>
+    <div class="column">
+        @Html.EditorFor(m => m.HomeAddress)
+    </div>
+    <input type="submit" value="Submit"/>
+@*</form>*@
+}
+
+@*@Html.DropDownList("myList", new SelectList(new string[] {"A", "B"}), "Choose")*@
