@@ -1,0 +1,13 @@
+﻿@using HelperMethods.Models
+@model IEnumerable<Person>
+
+<h6>GetPeopleData</h6>
+
+@foreach (var p in Model)
+{
+    <tr>
+        <td>@p.FirstName</td>
+        <td>@p.LastName</td>
+        <td>@p.Role</td>
+    </tr>
+}

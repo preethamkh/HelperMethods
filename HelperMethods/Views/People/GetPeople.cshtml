@@ -1,0 +1,52 @@
+﻿@using HelperMethods.Models
+@model string
+@{
+    ViewBag.Title = "GetPeople";
+    Layout = "/Views/Shared/_Layout.cshtml";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "tableBody",
+        Url = Url.Action("GetPeopleData"),
+        LoadingElementId = "loading",
+        LoadingElementDuration = 1000
+        //Confirm = "Do you wish to fetch new data?"
+    };
+}
+
+<h2>GetPeople</h2>
+
+<div id="loading" class="load" style="display: none">
+    <p>loading data...</p>
+</div>
+
+<table>
+    <thead><tr><th>First</th><th>Last</th><th>Role</th></tr></thead>
+    <tbody id="tableBody">
+        @Html.Action("GetPeopleData", new { selectedRole = Model })
+    </tbody>
+</table>
+
+@*@using (Ajax.BeginForm("GetPeopleData", ajaxOptions))*@
+@using (Ajax.BeginForm(ajaxOptions))
+{
+    <div>
+        @Html.DropDownList("selectedRole", new SelectList(
+new[] { "All" }.Concat(Enum.GetNames(typeof(Role)))))
+        <button type="submit">Submit</button>
+    </div>
+}
+
+<div>
+    @foreach (string role in Enum.GetNames(typeof(Role)))
+    {
+        <div class="ajaxLink">
+            @Ajax.ActionLink(role, "GetPeople",
+            new { selectedRole = role },
+            new AjaxOptions
+            {
+                UpdateTargetId = "tableBody",
+                Url = Url.Action("GetPeopleData", new {selectedRole = role})
+            })
+        </div>
+    }
+</div>
